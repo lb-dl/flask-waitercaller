@@ -1,3 +1,5 @@
+#import datetime
+
 from flask import Flask
 from flask import redirect
 from flask import render_template
@@ -12,14 +14,17 @@ from flask_login import current_user
 
 from mockdbhelper import MockDBHelper as DBHelper
 from passwordhelper import PasswordHelper
-
+from bitlyhelper import BitlyHelper
 from user import User
+
 
 import config
 
 
 DB = DBHelper()
 PH = PasswordHelper()
+BH = BitlyHelper()
+
 
 app = Flask(__name__)
 app.secret_key = "53PvPCt8G3D6roxjLE6Q9LZzdVRdcRVmyKlpYSHshEAPJGe4bsnLU7Lk7Z0YTFOKjIvKtFQLLApGQXLte0LZS34j2GNgPFiFHv"
@@ -58,7 +63,7 @@ def account_deletetable():
 def account_createtable():
     tablename = request.form.get("tablenumber")
     tableid = DB.add_table(tablename, current_user.get_id())
-    new_url = config.base_url + "newrequest/" + tableid
+    new_url = BH.shorten_url(config.base_url + "newrequest/" + tableid)
     DB.update_table(tableid, new_url)
     return redirect(url_for('account'))
 

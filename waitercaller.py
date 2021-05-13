@@ -1,11 +1,28 @@
-from flask import Flask, url_for, redirect, render_template, request
+import datetime
 
-from flask_login import LoginManager, login_user, logout_user, login_required
+from flask import Flask
+from flask import redirect
+from flask import render_template
+from flask import request
+from flask import url_for
+
+from flask_login import LoginManager
+from flask_login import login_required
+from flask_login import login_user
+from flask_login import logout_user
+from flask_login import current_user
 
 from mockdbhelper import MockDBHelper as DBHelper
 from passwordhelper import PasswordHelper
-
+from bitlyhelper import BitlyHelper
 from user import User
+
+from forms import RegistrationForm
+from forms import LoginForm
+from forms import CreateTableForm
+
+import config
+
 
 DB = DBHelper()
 PH = PasswordHelper()
@@ -30,7 +47,23 @@ def home():
 @app.route("/account")
 @login_required
 def account():
-    return "You're logged in"
+    return render_template("account.html")
+
+
+@app.route("/account/createtable", methods=["POST"])
+@login_required
+def account_createtable():
+    tablename = request.form.get("tablenumber")
+    tableid = DB.add_table(tablename, current_user.get_id())
+    new_url = config.base_url + "newrequest/" + tableid
+    DB.update_table(tableid, new_url)
+    return redirect(url_for('account'))
+
+
+@app.route("/dashboard")
+@login_required
+def dashboard():
+    return render_template("dashboard.html")
 
 
 @app.route("/logout")

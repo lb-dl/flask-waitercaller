@@ -9,10 +9,27 @@
     <title>Title</title>
 </head>
 <body>
-    {% include "navbar.html" %}
+    {% block navbar %}
+        <nav class="navbar navbar-dark bg-dark navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/dashboard">Dashboard</a>
+                    <a class="navbar-brand" href="/account">Account</a>
+                </div>
+            </div>
+        </nav>
+    {% endblock %}
+
     {% block content %}
     {% endblock content %}
 
-<script src="{{url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <div class="container">
+        <hr>
+        <footer>
+            <p>&copy; IK 2021</p>
+        </footer>
+    </div>
+
+    <script src="{{url_for('static', filename='js/bootstrap.min.js') }}"></script>
 </body>
 </html>

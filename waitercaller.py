@@ -1,5 +1,3 @@
-import datetime
-
 from flask import Flask
 from flask import redirect
 from flask import render_template
@@ -14,12 +12,8 @@ from flask_login import current_user
 
 from mockdbhelper import MockDBHelper as DBHelper
 from passwordhelper import PasswordHelper
-from bitlyhelper import BitlyHelper
-from user import User
 
-from forms import RegistrationForm
-from forms import LoginForm
-from forms import CreateTableForm
+from user import User
 
 import config
 
@@ -47,7 +41,16 @@ def home():
 @app.route("/account")
 @login_required
 def account():
-    return render_template("account.html")
+    tables = DB.get_tables(current_user.get_id())
+    return render_template("account.html", tables=tables)
+
+
+@app.route("/account/deletetable")
+@login_required
+def account_deletetable():
+    tableid = request.args.get("tableid")
+    DB.delete_table(tableid)
+    return redirect(url_for('account'))
 
 
 @app.route("/account/createtable", methods=["POST"])
@@ -70,7 +73,6 @@ def dashboard():
 def logout():
     logout_user()
     return redirect(url_for("home"))
-
 
 
 @app.route("/login", methods=["POST"])
@@ -98,7 +100,6 @@ def register():
     hashed = PH.get_hash(pw1+salt)
     DB.add_user(email, salt, hashed)
     return redirect(url_for("home"))
-
 
 
 if __name__ == '__main__':

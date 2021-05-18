@@ -16,7 +16,7 @@ from mockdbhelper import MockDBHelper as DBHelper
 from passwordhelper import PasswordHelper
 from bitlyhelper import BitlyHelper
 from user import User
-
+from qrhelper import QRHelper
 from forms import CreateTableForm
 from forms import LoginForm
 from forms import RegistrationForm
@@ -27,10 +27,11 @@ if config.test:
     from mockdbhelper import MockDBHelper as DBHelper
 else:
     from dbhelper import DBHelper
+
 DB = DBHelper()
 PH = PasswordHelper()
 BH = BitlyHelper()
-
+QR = QRHelper()
 
 app = Flask(__name__)
 app.secret_key = "53PvPCt8G3D6roxjLE6Q9LZzdVRdcRVmyKlpYSHshEAPJGe4bsnLU7Lk7Z0YTFOKjIvKtFQLLApGQXLte0LZS34j2GNgPFiFHv"
@@ -71,6 +72,7 @@ def account_createtable():
     if form.validate():
         tableid = DB.add_table(form.tablenumber.data, current_user.get_id())
         new_url = BH.shorten_url(config.base_url + "newrequest/" + str(tableid))
+        qr = QR.make_qrcode(new_url, tableid)
         DB.update_table(tableid, new_url)
         return redirect(url_for('account'))
     return render_template("account.html", createtableform=form, tables=DB.get_tables(current_user.get_id()))

@@ -82,7 +82,7 @@ def account_createtable():
 def new_request(tid):
     if DB.add_request(tid, datetime.datetime.now()):
         return "Your request has been logged and a waiter will be with you shortly"
-    return "There is already a request pending for this table. A waiter will be there ASAP"
+    return "There is already a request waiting for this table. A waiter will be there ASAP"
 
 
 @app.route("/dashboard")

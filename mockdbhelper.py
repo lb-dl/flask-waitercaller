@@ -7,7 +7,7 @@ MOCK_USERS = [{"email": "test@example.com", "salt": "pLlgTRYlE11EGGhuofj/ZJqU/CQ
 
 MOCK_TABLES = [{"_id": "1", "number": "1", "owner": "test@example.com", "url": "mockurl"}]
 
-MOCK_REQUESTS = [{"_id": "1", "table_number": "1","table_id": "1", "time": datetime.datetime.now()}]
+MOCK_REQUESTS = [{"_id": "1", "table_number": "1", "table_id": "1", "time": datetime.datetime.now()}]
 
 
 class MockDBHelper:

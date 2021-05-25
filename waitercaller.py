@@ -2,7 +2,7 @@ from flask import Flask
 
 from flask_login import LoginManager
 
-from mockdbhelper import MockDBHelper as DBHelper
+# from mockdbhelper import MockDBHelper as DBHelper
 from passwordhelper import PasswordHelper
 from bitlyhelper import BitlyHelper
 from user import User

@@ -3,3 +3,4 @@ config.py
 *.pyc
 static/
 .idea
+__pycache__/

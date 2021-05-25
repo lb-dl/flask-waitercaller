@@ -1,16 +1,13 @@
 from flask import Blueprint, url_for, redirect, render_template, request
 from main.forms import LoginForm, RegistrationForm
+
 from user import User
-from passwordhelper import PasswordHelper
+
 from dbhelper import DBHelper
 from passwordhelper import PasswordHelper
 
-
-from flask_login import LoginManager
-from flask_login import login_required
 from flask_login import login_user
 from flask_login import logout_user
-from flask_login import current_user
 
 
 DB = DBHelper()
@@ -19,9 +16,11 @@ PH = PasswordHelper()
 
 main = Blueprint('main', __name__)
 
+
 @main.route("/")
 def home():
     return render_template("home.html", loginform=LoginForm(), registrationform=RegistrationForm())
+
 
 @main.route("/login", methods=["POST"])
 def login():

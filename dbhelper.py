@@ -5,6 +5,7 @@ from bson.objectid import ObjectId
 
 DATABASE = "waitercaller"
 
+
 class DBHelper:
     def __init__(self):
         client = pymongo.MongoClient()

@@ -1,7 +1,7 @@
 from flask import Blueprint, url_for, redirect, render_template, request
 from .forms import CreateTableForm
 
-from dbhelper import DBHelper
+from sql.dbhelper import DBHelper
 from bitlyhelper import BitlyHelper
 from qrhelper import QRHelper
 

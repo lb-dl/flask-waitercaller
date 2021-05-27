@@ -1,9 +1,9 @@
 from flask import Blueprint, url_for, redirect, render_template, request
-from main.forms import LoginForm, RegistrationForm
+from .forms import LoginForm, RegistrationForm
 
 from user import User
 
-from dbhelper import DBHelper
+from sql.dbhelper import DBHelper
 from passwordhelper import PasswordHelper
 
 from flask_login import login_user

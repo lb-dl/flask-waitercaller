@@ -11,9 +11,9 @@ from qrhelper import QRHelper
 import config
 
 if config.test:
-    from mockdbhelper import MockDBHelper as DBHelper
+    from sql.mockdbhelper import MockDBHelper as DBHelper
 else:
-    from dbhelper import DBHelper
+    from sql.dbhelper import DBHelper
 
 DB = DBHelper()
 PH = PasswordHelper()
@@ -40,9 +40,10 @@ def create_app():
     )
     login_manager.init_app(app)
 
-    from main.routes import main
-    from tables.routes import tables
-    from users.routes import users
+    from views.main.routes import main
+    from views.tables.routes import tables
+    from views.users.routes import users
+
     app.register_blueprint(main)
     app.register_blueprint(tables)
     app.register_blueprint(users)

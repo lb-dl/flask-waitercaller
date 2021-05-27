@@ -4,3 +4,5 @@ config.py
 static/
 .idea
 __pycache__/
+pytest_cache
+.flake8
